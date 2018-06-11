@@ -25,6 +25,8 @@ def main():
 	#make a directory if there isn't 
 	make_file(argv[1])
 
+	c = cv2.VideoCapture(0)
+
 	#take pictures
 	for i in range(int(argv[2])):
 
@@ -36,8 +38,8 @@ def main():
 		filename = "pic" + str(file_number) + ".png"
 		filepath = argv[1] + "/" + filename
  		
-		c = cv2.VideoCapture(0)
 		r, img = c.read()
+		print(r)
 		cv2.imwrite(filepath, img)
 
 	print('DONE')
