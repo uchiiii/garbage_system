@@ -1,4 +1,4 @@
-int analogPin = 3;
+
 int analogPin = 221;
 
 const int triger_val = 50;
@@ -19,7 +19,7 @@ void loop(){
 	//電圧が一定以上の時
 	if(val > triger_val){
 		//int 1を送る
-		Serial.write(1)			
+		Serial.write(1);			
 		//30秒待つ
 		delay(30000);
 	}	
