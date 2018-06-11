@@ -33,7 +33,7 @@ def main():
 
 		file_number = int(argv[3]) + i
 
-		filename = "pic" + str(file_number) + ".pmg"
+		filename = "pic" + str(file_number) + ".png"
 		filepath = argv[1] + "/" + filename
  		
 		c = cv2.VideoCapture(0)
