@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 '''
 On every occastion, 0 refers to pet(bottle), 1 bin, 2 can.
 '''
@@ -72,11 +73,20 @@ class Triger():
 #below is the server setting.
 app = Flask(__name__)
 
+=======
+from flask import Flask, render_template
+import datetime
+
+app = Flask(__name__)
+
+
+>>>>>>> 2b6664dd254c4eab8c67502ee99bc94de407a756
 #th process of the top page
 @app.route("/")
 def put_out_num():
     now = datetime.datetime.now()
     timeString = now.strftime("%Y-%m-%d %H:%M")
+<<<<<<< HEAD
     templateData = {
         'time': timeString,
         'num_pet': garbage_amount['pet'],
@@ -106,9 +116,24 @@ def reset():
     return render_template('reset.html',total_amount_pet=total_amount_pet, total_amount_bin=total_amount_bin,total_amount_can=total_amount_can)
 
 #def write_amount():
+=======
+
+    templateData = {
+        'time': timeString;
+        'num_pet':,
+        'num_bin':,
+        'num_cam':
+    }
+
+    return render_template('main.html', **templateData)
+
+>>>>>>> 2b6664dd254c4eab8c67502ee99bc94de407a756
 
 
 
 if __name__=="__main__":
+<<<<<<< HEAD
     myThread = Triger()
+=======
+>>>>>>> 2b6664dd254c4eab8c67502ee99bc94de407a756
     app.run(host='0.0.0.0', port=80, debug=True)
