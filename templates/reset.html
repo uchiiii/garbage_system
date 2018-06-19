@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <title>Reset</title>
+        <link rel="stylesheet" href="/static/app.css">
+    </head>
+    <body>
+        <h1>The history of the amount of garbage.</h1>
+
+        <div style="width: 50%">
+            <canvas id="chart" height="450" width="600"></canvas>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+        <script src="/static/reset.js></script>
+        <script>
+            var total_garbage_pet = {{ total_garbage_pet|tojson}};
+            var total_garbage_bin = {{ total_garbage_pet|tojson}};
+            vat total_garbage_can = {{ total_garbage_can|tojson}};
+        </script>
+    </body>
+</html>

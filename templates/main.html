@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Garbege Situation</title>
+    <link rel="stylesheet" href="/static/app.css">
+</head>
+
+<body>
+    <h1>Total Amount of Garbage </h1>
+    <h2>as of {{time}}</h2>
+    <table border="1">
+        <tr>
+            <th>ペットボトル</th><th>ビン</th><th>カン</th>
+        </tr>
+        <tr>
+            <td>{{num_pet}}</td><td>{{num_bin}}</td><td>{{num_can}}</td>
+        </tr>
+    </table>
+
+    <form action="/reset" method="get">
+        <button class="button1" name="tozero" value="resetting">reset</button>
+    </form>
+</body>
+</html>

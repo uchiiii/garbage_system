@@ -41,7 +41,7 @@ void loop(){
 	if(val > triger_val){
 		//int 1を送る
 		Serial.write(1);			
-		//30秒待つ
+		//30秒（これはすべての制御が終わる時間）待つ
 		delay(30000);
 	}	
 
