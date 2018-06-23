@@ -1,7 +1,6 @@
 '''
 On every occastion, 0 refers to pet(bottle), 1 bin, 2 can.
 '''
-
 from flask import Flask, render_template, request, jsonify
 import datetime
 import numpy as np
@@ -16,7 +15,8 @@ import time, threading
 garbage_amount = {'pet':0, 'bin':0, 'can':0}
 
 #dictionary to store the total amount of garbage
-total_amount = [{"2018/4": 3, "2018/5" : 8},{"2018/4": 4, "2018/5": 6},{"2018/4": 12, "2018/5": 2}]
+total_amount = [{ "2018/4": 3, "2018/5" : 8},{"2018/4": 4, "2018/5": 6},{"2018/4": 12, "2018/5": 2}]
+example = {'a':{'x':1, 'y':8,},'b':{'z':3},'c':[1,2,3,4,5]}
 
 #The class below is for the process with arduino
 class Triger():
@@ -100,11 +100,10 @@ def reset():
         else:
             total_amount[i][year_month] = garbage_amount[item]
         garbage_amount[item] = 0
-    print(total_amount[0])
-    #response = jsonify({ 'pet' : total_amount[0], 'bin' : total_amount[1], 'can' : total_amount[2]})
-    response = jsonify(**total_amount[0])
-    response.status_code = 200
-    print(response)
+        i += 1
+    data = { 'pet_amount' : total_amount[0], 'bin_amount' : total_amount[1], 'can_amount' : total_amount[2] }
+    response = jsonify(data)
+    print(total_amount)
     return response
 
 @app.route('/register')
