@@ -17,3 +17,8 @@ button.button1{
 button.button1:hover {
         opacity: 0.8;
 }
+
+#map{
+    width: 70%;
+    height: 500px;
+}

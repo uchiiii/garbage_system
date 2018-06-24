@@ -17,6 +17,9 @@ garbage_amount = {'pet':0, 'bin':0, 'can':0}
 #dictionary to store the total amount of garbage
 total_amount = [{ "2018/4": 3, "2018/5" : 8},{"2018/4": 4, "2018/5": 6},{"2018/4": 12, "2018/5": 2}]
 
+#dictionary to store the name, location of the garbage you've set up.
+loc_gar = {'1': { 'name': 'ryosuke garbage', 'lat': 35.658581, 'lng': 139.745433}} 
+
 #The class below is for the process with arduino
 class Triger():
     def __init__(self):
@@ -72,10 +75,24 @@ class Triger():
 app = Flask(__name__)
 
 #th process of the top page
-@app.route("/")
+@app.route('/')
 def put_out_num():
     now = datetime.datetime.now()
     timeString = now.strftime("%Y-%m-%d %H:%M")
+    templateData = {
+        'time': timeString,
+        'num_pet': garbage_amount['pet'],
+        'num_bin': garbage_amount['bin'],
+        'num_can': garbage_amount['can']
+    }
+    return render_template('main.html', **templateData)
+
+@app.route('/gar_status/<int:gar_num>')
+def put_out_num(gar_num):
+    gar_name 
+    now = datetime.datetime.now()
+    timeString = now.strftime("%Y-%m-%d %H:%M")
+    #need the data srtucture to be changed 
     templateData = {
         'time': timeString,
         'num_pet': garbage_amount['pet'],
@@ -113,6 +130,10 @@ def register():
 def loc_map():
     return render_template('/location.html')
 
+@app.route('/send_loc')
+def send_loc():
+    response = jsonify(loc_gar)
+    return response
 
 
 if __name__=="__main__":
