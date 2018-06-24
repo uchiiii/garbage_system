@@ -16,7 +16,6 @@ garbage_amount = {'pet':0, 'bin':0, 'can':0}
 
 #dictionary to store the total amount of garbage
 total_amount = [{ "2018/4": 3, "2018/5" : 8},{"2018/4": 4, "2018/5": 6},{"2018/4": 12, "2018/5": 2}]
-example = {'a':{'x':1, 'y':8,},'b':{'z':3},'c':[1,2,3,4,5]}
 
 #The class below is for the process with arduino
 class Triger():

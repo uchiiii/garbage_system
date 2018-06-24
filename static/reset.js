@@ -12,25 +12,55 @@ window.onload = function drawGraph(){
         success : function(res){
             //alert(res.pet_amount["2018/4"]); OK
             for(var item in res.pet_amount){
-                label.unshift(item);
-                pet_num.unshift(res.pet_amount[item]);
+                label.push(item);
+                pet_num.push(res.pet_amount[item]);
             }
             for(var item in res.bin_amount){
-                bin_num.unshift(res.bin_amount[item]);
+                bin_num.push(res.bin_amount[item]);
             }
             for(var item in res.can_amount){
-                can_num.unshift(res.can_amount[item]);
+                can_num.push(res.can_amount[item]);
             }
             dataset = {
                 labels: label,
                 datasets: [{
                     label: 'PET BOTTLE',
+                    fill: false,
+                    backgroundColor: "rgba(0,255,255,0.2)",
+                    borderWidth: 2,
+                    borderColor: "green",
+                    pointBorderColor: "#fff",
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 5,
+                    pointHoverBorderColor: "#fff",
+                    pointHoverBorderWidth: 2,
+                    tension: 0,
                     data: pet_num
                 }, {
                     label: 'BIN',
+                    fill: false,
+                    backgroundColor: "rgba(0,0,255,0.2)",
+                    borderWidth: 2,
+                    borderColor: "blue",
+                    pointBorderColor: "#fff",
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 5,
+                    pointHoverBorderColor: "#fff",
+                    pointHoverBorderWidth: 2,
+                    tension: 0,
                     data: bin_num
                 },{
                     label: 'CAN',
+                    fill: false,
+                    backgroundColor: "rgba(255,0,0,0.2)",
+                    borderWidth: 2,
+                    borderColor: "red",
+                    pointBorderColor: "#fff",
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 5,
+                    pointHoverBorderColor: "#fff",
+                    pointHoverBorderWidth: 2,
+                    tension: 0,
                     data: can_num
                 }]
             }
