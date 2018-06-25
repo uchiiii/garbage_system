@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Garbege Situation </title>
+    <link rel="stylesheet" href="/static/app.css">
+</head>
+
+<body>
+    <div class="box">
+        <a href="/">
+            <img class="garbage" src="/static/garbage.jpg">
+        </a>
+    </div>
+    <br>
+    <h1>Garbage : {{name}} </h1>
+    <h2>as of {{time}}</h2>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    
+    <table id="table" border="1">
+        <tr>
+            <th>ペットボトル</th><th>ビン</th><th>カン</th>
+        </tr>
+        <tr>
+            <td>{{num_pet}}</td><td>{{num_bin}}</td><td>{{num_can}}</td>
+        </tr>
+    </table>
+
+    <div style="padding-top:15px;">
+            <button id="btn" class="button1" name="tozero" value="resetting">reset</button>
+    </div>
+
+    <div style="width: 70%">
+            <canvas id="myChart" height="450" width="600"></canvas>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script type="text/javascript" src="/static/draw_graph.js"></script>
+    <script src="/static/reset.js"></script>
+
+    <nav style="padding-top:15px;">
+            <ul>
+            <li><a href="http://www.city.bunkyo.lg.jp/tetsuzuki/recycling/kateigomisigen/syuusyuubi.html">本郷区のゴミの回収日</a></li>
+            </ul>
+    </nav>    
+    
+</body>
+</html>

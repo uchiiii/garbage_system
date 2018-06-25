@@ -41,95 +41,99 @@ void loop(){
 	if(val > triger_val){
 		//int 1を送る
 		Serial.write(1);			
-		//30秒（これはすべての制御が終わる時間）待つ
-		delay(30000);
-	}	
-
-//サーボモータに関するコード
-	//raspiからの入力があったとき
-	if(Serial.available() > 0){
+		while(true){
+			
+			//サーボモータに関するコード
+			//raspiからの入力があったとき
+			if(Serial.available() > 0){
 		// i = {0,1,2,3}
-		int i = Serial.read();
+				int i = Serial.read();
 
-		switch(i){
-			case 0: 
-				servo1.write(max_angle);
-				servo2.write(max_angle);
-				delay(wait1);
-				servo1.write(mid_angle);
-				servo2.write(mid_angle);
-				delay(wait2);
-				servo1.write(max_angle);
-				servo2.write(max_angle);
-				delay(wait1);
-				servo1.write(mid_angle);
-				servo2.write(mid_angle);
-				delay(wait2);
-				servo1.write(max_angle);
-				servo2.write(max_angle);
-				delay(wait3);
-				servo1.write(min_angle);
-				servo2.write(min_angle);
-
+				switch(i){
+					case 0: 
+						servo1.write(max_angle);
+						servo2.write(max_angle);
+						delay(wait1);
+						servo1.write(mid_angle);
+						servo2.write(mid_angle);
+						delay(wait2);
+						servo1.write(max_angle);
+						servo2.write(max_angle);
+						delay(wait1);
+						servo1.write(mid_angle);
+						servo2.write(mid_angle);
+						delay(wait2);
+						servo1.write(max_angle);
+						servo2.write(max_angle);
+						delay(wait3);
+						servo1.write(min_angle);
+						servo2.write(min_angle);
+						break;
 						
-			case 1: 
-				servo2.write(max_angle);
-				servo3.write(max_angle);
-				delay(wait1);
-				servo2.write(mid_angle);
-				servo3.write(mid_angle);
-				delay(wait2);
-				servo2.write(max_angle);
-				servo3.write(max_angle);
-				delay(wait1);
-				servo2.write(mid_angle);
-				servo3.write(mid_angle);
-				delay(wait2);
-				servo2.write(max_angle);
-				servo3.write(max_angle);
-				delay(wait3);
-				servo2.write(min_angle);
-				servo3.write(min_angle);
+					case 1: 
+						servo2.write(max_angle);
+						servo3.write(max_angle);
+						delay(wait1);
+						servo2.write(mid_angle);
+						servo3.write(mid_angle);
+						delay(wait2);
+						servo2.write(max_angle);
+						servo3.write(max_angle);
+						delay(wait1);
+						servo2.write(mid_angle);
+						servo3.write(mid_angle);
+						delay(wait2);
+						servo2.write(max_angle);
+						servo3.write(max_angle);
+						delay(wait3);
+						servo2.write(min_angle);
+						servo3.write(min_angle);
+						break;
+					
+					case 2: 
+						servo3.write(max_angle);
+						servo4.write(max_angle);
+						delay(wait1);
+						servo3.write(mid_angle);
+						servo4.write(mid_angle);
+						delay(wait2);
+						servo3.write(max_angle);
+						servo4.write(max_angle);
+						delay(wait1);
+						servo3.write(mid_angle);
+						servo4.write(mid_angle);
+						delay(wait2);
+						servo3.write(max_angle);
+						servo4.write(max_angle);
+						delay(wait3);
+						servo3.write(min_angle);
+						servo4.write(min_angle);
+						break;
 
-			
-			case 2: 
-				servo3.write(max_angle);
-				servo4.write(max_angle);
-				delay(wait1);
-				servo3.write(mid_angle);
-				servo4.write(mid_angle);
-				delay(wait2);
-				servo3.write(max_angle);
-				servo4.write(max_angle);
-				delay(wait1);
-				servo3.write(mid_angle);
-				servo4.write(mid_angle);
-				delay(wait2);
-				servo3.write(max_angle);
-				servo4.write(max_angle);
-				delay(wait3);
-				servo3.write(min_angle);
-				servo4.write(min_angle);
-			
-			case 3: 
-				servo4.write(max_angle);
-				servo1.write(max_angle);
-				delay(wait1);
-				servo4.write(mid_angle);
-				servo1.write(mid_angle);
-				delay(wait2);
-				servo4.write(max_angle);
-				servo1.write(max_angle);
-				delay(wait1);
-				servo4.write(mid_angle);
-				servo1.write(mid_angle);
-				delay(wait2);
-				servo4.write(max_angle);
-				servo1.write(max_angle);
-				delay(wait3);
-				servo4.write(min_angle);
-				servo1.write(min_angle);
+					case 3: 
+						servo4.write(max_angle);
+						servo1.write(max_angle);
+						delay(wait1);
+						servo4.write(mid_angle);
+						servo1.write(mid_angle);
+						delay(wait2);
+						servo4.write(max_angle);
+						servo1.write(max_angle);
+						delay(wait1);
+						servo4.write(mid_angle);
+						servo1.write(mid_angle);
+						delay(wait2);
+						servo4.write(max_angle);
+						servo1.write(max_angle);
+						delay(wait3);
+						servo4.write(min_angle);
+						servo1.write(min_angle);
+						break;
+				}
+
+			}
+			break;
 		}
-	}
+	}		
 }
 

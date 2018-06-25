@@ -1,18 +1,60 @@
 h1{
-    color:blue;
+    font-family: fantasy;
+    font-size: 300%;
+    color: black;
+    text-align : center ; 
+}
+h2{
+    font-family: fantasy;
+    font-size: 200%;
+    color: black;
+    text-align : center ; 
+}
+
+.box{
+	position:relative;
+    height:10px;
+    left: 10px;
+}
+
+img.garbage{
+    width: 100px;
+    margin:auto;
+}
+
+table{
+    margin:auto;
+}
+
+table th{
+    padding: 20px 10px;
+    color: white;
+    background-color: black
+}
+
+table td{
+    padding: 20px 10px;
+    color:black;
+    background-color: white;
+}
+
+div { 
+    padding: 20px 10px ; 
+    text-align : center ; 
+    margin: auto;
 }
 
 button.button1{
     font-size: 1.4em;
     font-weight: bold;
     padding: 10px 30px;
-    color: #fff;
+    color: white;
+    background-color: black;
     border-style: none;
     box-shadow: 2px 2px 3px 1px #666;
     -moz-box-shadow: 2px 2px 3px 1px #666;
     -webkit-box-shadow: 2px 2px 3px 1px #666;
     text-shadow: 1px 1px 2px #000;
-    background: -moz-linear-gradient(bottom, #36d, #248 50%, #36d);
 }
 button.button1:hover {
         opacity: 0.8;
@@ -21,4 +63,14 @@ button.button1:hover {
 #map{
     width: 70%;
     height: 500px;
+}
+
+li{
+    text-align : center ; 
+    margin:auto;
+}
+
+a{
+    margin:auto;
+    color:black;
 }

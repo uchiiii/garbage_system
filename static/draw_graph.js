@@ -4,23 +4,9 @@ var pet_num = [];
 var bin_num = [];
 var can_num = [];
 
-document.getElementById('btn').onclick = function msgdsp(){
-    if(confirm("ゴミ箱の量をリセットしますか?")){
-        drawGraph();
-    }else{
-        alert("操作を取り消しました.")
-    }
-}
-
-var myChart;
-
-function drawGraph(){
-    var pathname = location.pathname;
-    if(pathname.lastIndexOf('/')>=0){
-        var url = '/reset/' + pathname.substring(pathname.lastIndexOf('/')+1);
-    }
+window.onload = function drawGraph(){
     $.ajax({
-        url : url,
+        url : '/draw_graph',
         type : 'GET',
         dataType : 'json',
         success : function(res){
@@ -79,7 +65,6 @@ function drawGraph(){
                 }]
             }
             
-   
             var ctx = document.getElementById("myChart").getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line',

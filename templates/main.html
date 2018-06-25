@@ -1,42 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Garbege Situation</title>
-    <link rel="stylesheet" href="/static/app.css">
-</head>
-
-<body>
-    <h1>Total Amount of Garbage </h1>
-    <h2>as of {{time}}</h2>
-    <table border="1">
-        <tr>
-            <th>ペットボトル</th><th>ビン</th><th>カン</th>
-        </tr>
-        <tr>
-            <td>{{num_pet}}</td><td>{{num_bin}}</td><td>{{num_can}}</td>
-        </tr>
-    </table>
-    <div style="padding-top:15px;">
-            <button class="button1" name="tozero" value="resetting" onclick="msgdsp()">reset</button>
-    </div>
-    <nav style="padding-top:15px;">
-            <ul>
-            <li><a href="http://www.city.bunkyo.lg.jp/tetsuzuki/recycling/kateigomisigen/syuusyuubi.html">本郷区のゴミの回収日</a></li>
-            <li><a href="/location">ゴミ箱の設置場所</a></li>
-            </ul>
-        </nav>    
-    <script>
-        function msgdsp(){
-            if(confirm("ゴミ箱の量をリセットしますか?")){
-                host = location.host;
-                //alert(host/reset);
-                //nextpage = host + "/reset"
-                window.location.href = "reset";
-            }else{
-                alert("操作を取り消しました.")
-            }
-        }
-
-    </script>
-</body>
+    <head>
+        <title>Garbage SYSTEM</title>
+        <link rel="stylesheet" href="/static/app.css">
+    </head>
+    <body>
+        <h1>Garbage SYSTEM</h1>
+        <h2>Location</h2>
+        <div id="map"></div>
+        <script src="/static/location.js"></script>
+        <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyD9HjJjMLJhfIk3BhlZyT2Z0ytxDXPJUEk&callback=initMap&lang=ja"></script>
+        <h2>
+            <a href="/register">Register</a>
+        </h2>
+    </body>
 </html>

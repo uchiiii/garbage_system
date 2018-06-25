@@ -10,6 +10,7 @@ import sys
 import json
 import serial
 import time, threading
+import predict
 
 #dictionary to store the current amount of garbage
 garbage_amount = {'pet':0, 'bin':0, 'can':0}
@@ -18,7 +19,7 @@ garbage_amount = {'pet':0, 'bin':0, 'can':0}
 total_amount = [{ "2018/4": 3, "2018/5" : 8},{"2018/4": 4, "2018/5": 6},{"2018/4": 12, "2018/5": 2}]
 
 #dictionary to store the name, location of the garbage you've set up.
-loc_gar = {'1': { 'name': 'ryosuke garbage', 'lat': 35.658581, 'lng': 139.745433}} 
+loc_gar = {'id': 0,  'name': 'ryosuke garbage', 'lat': 35.658581, 'lng': 139.745433} 
 
 #The class below is for the process with arduino
 class Triger():
@@ -49,9 +50,13 @@ class Triger():
         return frame
 
     def image_recognition(self,frame):
-        #not yet
-        infer = 0
-        #infer is supposed to be 'pet' or 'bin', 'can'
+        output = predict.prd(frame)
+        if(output == 3):
+            infer = 'pet'
+        elif(output == 2):
+            infer = 'bin'
+        elif(output == 1):
+            infer = 'can'
         return infer
 
     def add_to_dic(self,infer):
@@ -76,17 +81,10 @@ app = Flask(__name__)
 
 #th process of the top page
 @app.route('/')
-def put_out_num():
-    now = datetime.datetime.now()
-    timeString = now.strftime("%Y-%m-%d %H:%M")
-    templateData = {
-        'time': timeString,
-        'num_pet': garbage_amount['pet'],
-        'num_bin': garbage_amount['bin'],
-        'num_can': garbage_amount['can']
-    }
-    return render_template('main.html', **templateData)
+def home():
+    return render_template('main.html')
 
+'''
 @app.route('/gar_status/<int:gar_num>')
 def put_out_num(gar_num):
     gar_name 
@@ -100,13 +98,11 @@ def put_out_num(gar_num):
         'num_can': garbage_amount['can']
     }
     return render_template('main.html', **templateData)
+'''
 
-@app.route('/reset')
-def load_html():
-    return render_template('reset.html')
 
-@app.route('/draw_graph')
-def reset():
+@app.route('/reset/<int:gar_id>')
+def reset(gar_id):
     today = datetime.date.today()
     i = 0
     year_month = str(today.year) + '/' + str(today.month) 
@@ -119,16 +115,43 @@ def reset():
         i += 1
     data = { 'pet_amount' : total_amount[0], 'bin_amount' : total_amount[1], 'can_amount' : total_amount[2] }
     response = jsonify(data)
-    print(total_amount)
     return response
+
+@app.route('/draw_table')
+def table_data():
+    now = datetime.datetime.now()
+    timeString = now.strftime("%Y-%m-%d %H:%M")
+    templateData = {
+        'time': timeString,
+        'num_pet': garbage_amount['pet'],
+        'num_bin': garbage_amount['bin'],
+        'num_can': garbage_amount['can']
+    }
+    response = jsonify(templateData)
+    return response
+
+@app.route('/draw_graph')
+def graph_data():
+    data = { 'pet_amount' : total_amount[0], 'bin_amount' : total_amount[1], 'can_amount' : total_amount[2] }
+    response = jsonify(data)
+    return response
+
+@app.route('/personal/<int:gar_id>')
+def load_html(gar_id):
+    now = datetime.datetime.now()
+    timeString = now.strftime("%Y-%m-%d %H:%M")
+    templateData = {
+        'name': 'keisu_garbage',
+        'time': timeString,
+        'num_pet': garbage_amount['pet'],
+        'num_bin': garbage_amount['bin'],
+        'num_can': garbage_amount['can']
+    }
+    return render_template('personal.html',**templateData)
 
 @app.route('/register')
 def register():
     return render_template('register.html')
-
-@app.route('/location')
-def loc_map():
-    return render_template('/location.html')
 
 @app.route('/send_loc')
 def send_loc():
@@ -137,5 +160,5 @@ def send_loc():
 
 
 if __name__=="__main__":
-    #myThread = Triger()
+    myThread = Triger()
     app.run(host='0.0.0.0', port=5000, debug=True)
