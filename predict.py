@@ -5,6 +5,7 @@ import chainer.links as L
 import argparse
 import numpy as np
 from PIL import Image
+import cv2
 
 def prd(image):
 	parser = argparse.ArgumentParser(description='TEST_NN')
@@ -15,7 +16,7 @@ def prd(image):
 	model = L.Classifier(training1.MLP())
 	chainer.serializers.load_npz("./model1.npz", model)
 	#image = Image.open("./sample_images_bin1/pic0.png")
-	img = image.resize((256,256),Image.ANTIALIAS)
+	img = cv2.resize(image,(256,256))
 	imgArray = np.asarray(img).astype(np.float32)/255.
 	imgA=imgArray[np.newaxis,:,:]
 	
@@ -25,7 +26,3 @@ def prd(image):
 	m = np.argmax(prediction.data)
 	#print("result={}".format(m) )
 	return m
-
-if __name__ == '__main__':
-	main()
-\

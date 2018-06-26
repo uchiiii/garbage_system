@@ -1,8 +1,19 @@
+jQuery(function ($) {
+    $.PeriodicalUpdater('/draw_table',{
+    //  オプション設定
+        method: 'get',      // 送信リクエストURL
+        minTimeout: 10000,  // 送信インターバル(ミリ秒)
+        type: 'json',       // xml、json、scriptもしくはhtml (jquery.getやjquery.postのdataType)
+        multiplier:1,       // リクエスト間隔の変更
+        maxCalls: 0         //　リクエスト回数（0：制限なし）
+    },
+    function (res){
+        $('table#table tr:nth-child(2) td:nth-child(1)').text(res.num_pet);
+        $('table#table tr:nth-child(2) td:nth-child(2)').text(res.num_bin);
+        $('table#table tr:nth-child(2) td:nth-child(3)').text(res.num_can);
 
-var label = [];
-var pet_num = [];
-var bin_num = [];
-var can_num = [];
+    });
+});
 
 window.onload = function drawGraph(){
     $.ajax({
@@ -11,6 +22,10 @@ window.onload = function drawGraph(){
         dataType : 'json',
         success : function(res){
             //alert(res.pet_amount["2018/4"]); OK
+            pet_num = [];
+            bin_num = [];
+            can_num = [];
+            label = [];
             for(var item in res.pet_amount){
                 label.push(item);
                 pet_num.push(res.pet_amount[item]);

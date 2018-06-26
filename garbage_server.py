@@ -31,23 +31,27 @@ class Triger():
         self.thread.start()
 
     def waiting(self):
-        with serial.Serial('/dev/ttyACM0',9600,timeout=1) as ser:
+        with serial.Serial('/dev/ttyACM1',9600,timeout=1) as ser:
+            ser.reset_input_buffer()
             while True:
                 if ser.in_waiting > 0:
+                    c = ser.readline()
                     frame = self.take_photo()
+                    print(frame)
                     #image recognition
                     infer = self.image_recognition(frame)
                     self.add_to_dic(infer)
                     #send the int to Aruduino
                     self.send_to_arduino(ser, infer)
-
+                    
             ser.close()
 
     def take_photo(self):
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(1)
         _, frame = cap.read()
+        gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
         cap.release()
-        return frame
+        return gray
 
     def image_recognition(self,frame):
         output = predict.prd(frame)
@@ -73,6 +77,7 @@ class Triger():
             i = 2
         else:
             sys.stderr.write('Error occurred!')
+        i = str(i)
         ser.write(i)
 
 
@@ -117,6 +122,7 @@ def reset(gar_id):
     response = jsonify(data)
     return response
 
+
 @app.route('/draw_table')
 def table_data():
     now = datetime.datetime.now()
@@ -160,5 +166,5 @@ def send_loc():
 
 
 if __name__=="__main__":
-    myThread = Triger()
+    #myThread = Triger()
     app.run(host='0.0.0.0', port=5000, debug=True)

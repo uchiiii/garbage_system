@@ -1,3 +1,4 @@
+# coding: utf-8
 #カメラで指定した枚数だけ撮影し、指定のファイルにいれる.
 #実行例１：猫の写真を連続で100枚とる.  ./catに出力されるファイル名はpic0.pngからpic99.png
 #	>> python get_sample.py ./cat 100 0
@@ -30,7 +31,7 @@ def main():
 	#make a directory if there isn't 
 	make_file(argv[1])
 
-	c = cv2.VideoCapture(0)
+	c = cv2.VideoCapture(1)
 
 	#take pictures
 	for i in range(int(argv[2])):

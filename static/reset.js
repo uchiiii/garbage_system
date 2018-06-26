@@ -1,8 +1,4 @@
 
-var label = [];
-var pet_num = [];
-var bin_num = [];
-var can_num = [];
 
 document.getElementById('btn').onclick = function msgdsp(){
     if(confirm("ゴミ箱の量をリセットしますか?")){
@@ -12,7 +8,6 @@ document.getElementById('btn').onclick = function msgdsp(){
     }
 }
 
-var myChart;
 
 function drawGraph(){
     var pathname = location.pathname;
@@ -24,6 +19,10 @@ function drawGraph(){
         type : 'GET',
         dataType : 'json',
         success : function(res){
+            pet_num = [];
+            bin_num = [];
+            can_num = [];
+            label = [];
             //alert(res.pet_amount["2018/4"]); OK
             for(var item in res.pet_amount){
                 label.push(item);
@@ -35,7 +34,7 @@ function drawGraph(){
             for(var item in res.can_amount){
                 can_num.push(res.can_amount[item]);
             }
-            dataset = {
+            data = {
                 labels: label,
                 datasets: [{
                     label: 'PET BOTTLE',
@@ -79,16 +78,14 @@ function drawGraph(){
                 }]
             }
             
-   
+            $("canvas#myChart").remove();
+            $("div.myChart").append('<canvas id="myChart" ></canvas>');
             var ctx = document.getElementById("myChart").getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line',
-                data: dataset
+                data: data
             });
         }
-    })
-
-    
-    
+    })    
 } 
 
