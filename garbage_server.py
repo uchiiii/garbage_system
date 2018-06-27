@@ -6,11 +6,10 @@ import datetime
 import numpy as np
 import cv2
 import os
+import serial
 import sys
 import json
-import serial
 import time, threading
-import predict
 
 #dictionary to store the current amount of garbage
 garbage_amount = {'pet':0, 'bin':0, 'can':0}
@@ -20,65 +19,6 @@ total_amount = [{ "2018/4": 3, "2018/5" : 8},{"2018/4": 4, "2018/5": 6},{"2018/4
 
 #dictionary to store the name, location of the garbage you've set up.
 loc_gar = {'id': 0,  'name': 'ryosuke garbage', 'lat': 35.658581, 'lng': 139.745433} 
-
-#The class below is for the process with arduino
-class Triger():
-    def __init__(self):
-        self.process_event = threading.Event()
-
-        #create and start threading
-        self.thread = threading.Thread(target = self.waiting)
-        self.thread.start()
-
-    def waiting(self):
-        with serial.Serial('/dev/ttyACM1',9600,timeout=1) as ser:
-            ser.reset_input_buffer()
-            while True:
-                if ser.in_waiting > 0:
-                    c = ser.readline()
-                    frame = self.take_photo()
-                    print(frame)
-                    #image recognition
-                    infer = self.image_recognition(frame)
-                    self.add_to_dic(infer)
-                    #send the int to Aruduino
-                    self.send_to_arduino(ser, infer)
-                    
-            ser.close()
-
-    def take_photo(self):
-        cap = cv2.VideoCapture(1)
-        _, frame = cap.read()
-        gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
-        cap.release()
-        return gray
-
-    def image_recognition(self,frame):
-        output = predict.prd(frame)
-        if(output == 3):
-            infer = 'pet'
-        elif(output == 2):
-            infer = 'bin'
-        elif(output == 1):
-            infer = 'can'
-        return infer
-
-    def add_to_dic(self,infer):
-        if infer in garbage_amount:
-            garbage_amount[infer] += 1
-
-    def send_to_arduino(self, ser, infer):
-        i = 0
-        if infer == 'pet':
-            i = 0
-        elif infer == 'bin':
-            i = 1
-        elif infer == 'can':
-            i = 2
-        else:
-            sys.stderr.write('Error occurred!')
-        i = str(i)
-        ser.write(i)
 
 
 #below is the server setting.
@@ -133,6 +73,7 @@ def table_data():
         'num_bin': garbage_amount['bin'],
         'num_can': garbage_amount['can']
     }
+    print(templateData)
     response = jsonify(templateData)
     return response
 
@@ -164,7 +105,12 @@ def send_loc():
     response = jsonify(loc_gar)
     return response
 
+@app.route('/with_raspi', methods=['GET'])
+def receive_infer():
+    infer = request.args.get('garbage')
+    print(infer)
+    garbage_amount[infer] += 1
+
 
 if __name__=="__main__":
-    #myThread = Triger()
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000)

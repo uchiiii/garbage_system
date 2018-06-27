@@ -1,6 +1,6 @@
 #include<Servo.h>
 
-int analogPin = A3;
+int analogPin = A0;
 
 Servo servo1, servo2, servo3, servo4;
 
@@ -48,15 +48,16 @@ void loop(){
 	if(val > triger_val){
 		//int 1を送る
 		delay(1000);
-		Serial.write(1);			
+		Serial.write('1');
+                delay(100);		
 		while(true){
 			
 			//サーボモータに関するコード
 			//raspiからの入力があったとき
 			if(Serial.available() > 0){
 		// i = {0,1,2,3}
-				int i = Serial.read();
-
+				int i = Serial.read()-(int)'0';
+                             
 				switch(i){
 					case 0: 
 						servo1.write(max_angle1);
@@ -118,7 +119,7 @@ void loop(){
 						servo4.write(min_angle2);
 						break;
 
-					case 3: 
+					default: 
 						servo4.write(max_angle2);
 						servo1.write(max_angle1);
 						delay(wait1);
@@ -138,9 +139,8 @@ void loop(){
 						servo1.write(min_angle1);
 						break;
 				}
-
+				break;
 			}
-			break;
 		}
 	}		
 }
