@@ -9,8 +9,8 @@ import predict
 import urllib3
 
 #You need to change server's ip address everytime!!!!
-TARGET_URL = "http://localhost:5000/with_raspi"
-ARDUINO = '/dev/ttyACM3'
+TARGET_URL = "http://ec2-54-218-103-254.us-west-2.compute.amazonaws.com:5000/with_raspi"
+ARDUINO = '/dev/ttyACM0'
 
 def main():
     with serial.Serial(ARDUINO,9600) as ser:

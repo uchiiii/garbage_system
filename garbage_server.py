@@ -3,8 +3,6 @@ On every occastion, 0 refers to pet(bottle), 1 bin, 2 can.
 '''
 from flask import Flask, render_template, request, jsonify
 import datetime
-import numpy as np
-import cv2
 import os
 import serial
 import sys
