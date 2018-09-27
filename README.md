@@ -22,7 +22,4 @@ python(numpy, opencv, flask, json, chart.js, arduino, chainer)
 
 [MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
 
-## Author
-
-[tcnksm](https://github.com/tcnksm)
 
